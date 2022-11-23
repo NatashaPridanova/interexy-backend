@@ -6,7 +6,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import userRoute from './routes/users.route';
 import authRoute from './routes/auth.route';
-import errorHandler from './middleware/errorHandler';
+import errorHandler, { pagesFolder } from './middleware/handleErrors.middleware';
 
 dotenv.config();
 
@@ -26,6 +26,12 @@ app.use('/auth', authRoute);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('hello interexy!');
+});
+
+app.get('*', (req: Request, res: Response) => {
+  console.log(req.headers);
+  res.sendFile(__dirname + '/pages/errorPage.html');
+  res.sendFile(pagesFolder + '404Page.html');
 });
 
 app.use('*', errorHandler);

@@ -1,15 +1,16 @@
 import express, { Request, Response } from 'express';
-const userRoute = express.Router();
 import { getUser } from '../services/users.service';
 import { StatusCodes } from 'http-status-codes';
-import { userModel } from '../models/User';
+import { userModel } from '../models/user';
 import { HydratedDocument } from 'mongoose';
-import { UserDocument } from '../models/User';
-import { AuthValidator } from '../middleware/AuthValidator';
+import { UserDocument } from '../models/user';
+import { authValidator } from '../middleware/checkAuth.middleware';
+
+const userRoute = express.Router();
 
 userRoute.get(
   '/',
-  AuthValidator,
+  authValidator,
   async (req: Request, res: Response): Promise<void> => {
     const users = await userModel.find({});
     res
@@ -20,7 +21,7 @@ userRoute.get(
 
 userRoute.get(
   '/:id',
-  AuthValidator,
+  authValidator,
   async (req: Request, res: Response): Promise<void> => {
     const userEntity: HydratedDocument<UserDocument> = await getUser(
       req.params.id

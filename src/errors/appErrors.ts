@@ -48,8 +48,8 @@ class BadRequestError extends AppError {
 }
 
 class EntityExistsError extends AppError {
-  errorCode = StatusCodes.EXPECTATION_FAILED;
-  errorType = ReasonPhrases.EXPECTATION_FAILED;
+  errorCode = StatusCodes.CONFLICT;
+  errorType = ReasonPhrases.CONFLICT;
 
   constructor(message: string) {
     super(message);

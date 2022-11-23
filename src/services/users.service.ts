@@ -1,8 +1,8 @@
-import { UserDocument } from '../models/User';
+import { UserDocument } from '../models/user';
 import { HydratedDocument } from 'mongoose';
 import { save, get, getByEmail } from '../repositories/users.db.repository';
 import bcrypt from 'bcrypt';
-import { AuthenticationError } from '../errors';
+import { AuthenticationError } from '../errors/appErrors';
 import jwt from 'jsonwebtoken';
 
 export const saveUser = (

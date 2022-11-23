@@ -15,15 +15,15 @@ export interface UserDocument extends User, Document {
 const userSchema: Schema<UserDocument> = new Schema(
   {
     name: {
-      type: String,
+      type: 'string',
       required: [true, 'No name was provided'],
     },
     surname: {
-      type: String,
+      type: 'string',
       required: [true, 'No surname was provided'],
     },
     email: {
-      type: String,
+      type: 'string',
       required: [true, 'No email was provided'],
       unique: true,
       validate: {
@@ -34,10 +34,10 @@ const userSchema: Schema<UserDocument> = new Schema(
       },
     },
     password: {
-      type: String,
+      type: 'string',
       required: [true, 'No password was provided'],
       trim: true,
-      min: 6,
+      minlength: 6,
       validate: {
         validator: function(str: string) {
           return /[a-zA-Z0-9]{6,}/.test(str);

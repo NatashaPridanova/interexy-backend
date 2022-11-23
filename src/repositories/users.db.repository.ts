@@ -1,8 +1,9 @@
-import { UserDocument, userModel } from '../models/User';
+import { UserDocument, userModel } from '../models/user';
+import { HydratedDocument } from 'mongoose';
+import { EntityExistsError, NotFoundError, ValidationError } from '../errors/appErrors';
+
 const ENTITY_NAME = 'user';
 const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
-import { HydratedDocument } from 'mongoose';
-import { EntityExistsError, NotFoundError, ValidationError } from '../errors';
 
 export const save = async (
   user: UserDocument
