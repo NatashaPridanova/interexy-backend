@@ -29,7 +29,7 @@ class UnauthorizedError extends AppError {
   }
 }
 
-class AuthentificationError extends AppError {
+class AuthenticationError extends AppError {
   errorCode = StatusCodes.FORBIDDEN;
   errorType = ReasonPhrases.FORBIDDEN;
 
@@ -65,7 +65,7 @@ class ValidationError extends BadRequestError {
 export {
   NotFoundError,
   UnauthorizedError,
-  AuthentificationError,
+  AuthenticationError,
   BadRequestError,
   EntityExistsError,
   ValidationError,

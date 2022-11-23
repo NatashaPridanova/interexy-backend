@@ -1,10 +1,11 @@
 import express, { Express, Request, Response } from 'express';
 import 'express-async-errors';
 import dotenv from 'dotenv';
-import helmet from 'helmet';
+import morgan from 'morgan';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import userRoute from './routes/users.route';
+import authRoute from './routes/auth.route';
 import errorHandler from './middleware/errorHandler';
 
 dotenv.config();
@@ -17,10 +18,11 @@ mongoose.connect(process.env.MONGO_URL, () => {
 });
 
 app.use(cors());
-app.use(helmet());
+app.use(morgan('common'));
 app.use(express.json());
 
 app.use('/users', userRoute);
+app.use('/auth', authRoute);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('hello interexy!');

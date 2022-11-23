@@ -2,7 +2,7 @@ import { UserDocument, userModel } from '../models/User';
 const ENTITY_NAME = 'user';
 const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
 import { HydratedDocument } from 'mongoose';
-import { EntityExistsError } from '../errors';
+import { EntityExistsError, NotFoundError, ValidationError } from '../errors';
 
 export const save = async (
   user: UserDocument
@@ -12,6 +12,8 @@ export const save = async (
   } catch (err) {
     if (err.code === MONGO_ENTITY_EXISTS_ERROR_CODE) {
       throw new EntityExistsError(`${ENTITY_NAME} with this email exists`);
+    } else if (err.name === 'ValidationError') {
+      throw new ValidationError(err.message);
     } else {
       throw err;
     }
@@ -25,8 +27,15 @@ export const get = async (
     _id: id,
   });
   if (!user) {
-    /*   */
+    throw new NotFoundError(`${ENTITY_NAME} with this id ${id} wasn't found`);
   }
+  return user;
+};
 
+export const getByEmail = async (email: string) => {
+  const user = await userModel.findOne({ email });
+  if (!user) {
+    throw new NotFoundError(`${ENTITY_NAME} with such email wasn't found`);
+  }
   return user;
 };
