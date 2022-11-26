@@ -19,7 +19,10 @@ mongoose.connect(process.env.MONGO_URL, () => {
   console.log('connected to mongo db');
 });
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://natashapridanova.github.io',
+};
+app.use(cors(corsOptions));
 app.use(morgan('common'));
 app.use(express.json());
 
@@ -31,7 +34,6 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('*', (req: Request, res: Response) => {
-  console.log(req.headers);
   res.sendFile(__dirname + '/pages/errorPage.html');
   res.sendFile(pagesFolder + '404Page.html');
 });
