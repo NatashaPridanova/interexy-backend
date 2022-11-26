@@ -16,34 +16,21 @@ const userSchema: Schema<UserDocument> = new Schema(
   {
     name: {
       type: 'string',
-      required: [true, 'No name was provided'],
+      required: true,
     },
     surname: {
       type: 'string',
-      required: [true, 'No surname was provided'],
+      required: true,
     },
     email: {
       type: 'string',
-      required: [true, 'No email was provided'],
+      required: true,
       unique: true,
-      validate: {
-        validator: function(str: string) {
-          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
-        },
-        message: `Your email should be valid`
-      },
     },
     password: {
       type: 'string',
-      required: [true, 'No password was provided'],
+      required: true,
       trim: true,
-      minlength: 6,
-      validate: {
-        validator: function(str: string) {
-          return /[a-zA-Z0-9]{6,}/.test(str);
-        },
-        message: `Your password should contain letters or numbers and have the length of 6 characters`
-      },
     },
   },
   { collection: 'users' }
@@ -56,8 +43,8 @@ userSchema.methods.toResponse = function (): Record<string, unknown> {
   return { id: _id, ...rest };
 };
 
-userSchema.pre("save", async function (this: UserDocument) {
+userSchema.pre('save', async function (this: UserDocument) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-export const userModel = mongoose.model<UserDocument>("User", userSchema);
+export const userModel = mongoose.model<UserDocument>('User', userSchema);

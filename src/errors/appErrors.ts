@@ -29,7 +29,7 @@ class UnauthorizedError extends AppError {
   }
 }
 
-class AuthenticationError extends AppError {
+class ForbiddenError extends AppError {
   errorCode = StatusCodes.FORBIDDEN;
   errorType = ReasonPhrases.FORBIDDEN;
 
@@ -42,6 +42,11 @@ class BadRequestError extends AppError {
   errorCode = StatusCodes.BAD_REQUEST;
   errorType = ReasonPhrases.BAD_REQUEST;
 
+  constructor(message: string) {
+    super(message);
+  }
+}
+class InvalidJwtError extends BadRequestError {
   constructor(message: string) {
     super(message);
   }
@@ -65,8 +70,9 @@ class ValidationError extends BadRequestError {
 export {
   NotFoundError,
   UnauthorizedError,
-  AuthenticationError,
+  ForbiddenError,
   BadRequestError,
   EntityExistsError,
   ValidationError,
+  InvalidJwtError,
 };

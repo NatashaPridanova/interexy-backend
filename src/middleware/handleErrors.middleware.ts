@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import path from 'path';
-import { UnauthorizedError } from '../errors/appErrors';
 import CustomError from '../errors/CustomError';
 export const pagesFolder = path.join(__dirname, '../' + 'pages/');
 

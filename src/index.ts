@@ -6,7 +6,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import userRoute from './routes/users.route';
 import authRoute from './routes/auth.route';
-import errorHandler, { pagesFolder } from './middleware/handleErrors.middleware';
+import errorHandler, {
+  pagesFolder,
+} from './middleware/handleErrors.middleware';
 
 dotenv.config();
 
@@ -35,6 +37,7 @@ app.get('*', (req: Request, res: Response) => {
 });
 
 app.use('*', errorHandler);
+
 app.listen(port, () => {
   console.log(`Backend Server is running at port ${port}`);
 });

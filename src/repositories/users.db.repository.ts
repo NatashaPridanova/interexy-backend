@@ -1,6 +1,10 @@
 import { UserDocument, userModel } from '../models/user';
 import { HydratedDocument } from 'mongoose';
-import { EntityExistsError, NotFoundError, ValidationError } from '../errors/appErrors';
+import {
+  EntityExistsError,
+  NotFoundError,
+  ValidationError,
+} from '../errors/appErrors';
 
 const ENTITY_NAME = 'user';
 const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
@@ -33,8 +37,12 @@ export const get = async (
   return user;
 };
 
-export const getByEmail = async (email: string) => {
-  const user = await userModel.findOne({ email });
+export const getByEmail = async (
+  email: string
+): Promise<HydratedDocument<UserDocument>> => {
+  const user: HydratedDocument<UserDocument> | null = await userModel.findOne({
+    email,
+  });
   if (!user) {
     throw new NotFoundError(`${ENTITY_NAME} with such email wasn't found`);
   }

@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { Request } from 'express';
-import { UnauthorizedError, AuthenticationError } from '../errors/appErrors';
+import { InvalidJwtError } from '../errors/appErrors';
 
-interface JwtClaims {
+export interface JwtClaims {
   id: string;
   iat: number;
   exp: number;
@@ -12,7 +12,7 @@ export function getClaims(req: Request): JwtClaims {
   const rawToken = req.headers.authorization;
 
   if (!rawToken) {
-    throw new UnauthorizedError('User is not authorized');
+    throw new InvalidJwtError('JWT is not provided');
   }
 
   try {
@@ -20,8 +20,6 @@ export function getClaims(req: Request): JwtClaims {
     const secret = process.env.JWT_SECRET_KEY;
     return jwt.verify(token, secret) as JwtClaims;
   } catch (error) {
-    throw new AuthenticationError(
-      `Error while decoding authentification token`
-    );
+    throw new InvalidJwtError(`Invalid JWT`);
   }
 }
