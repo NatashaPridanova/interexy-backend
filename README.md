@@ -15,10 +15,11 @@ Front-End part can be found [online](https://natashapridanova.github.io/interexy
 PORT=5000
 MONGO_URL=mongodb+srv://<insert here the key>:<insert here the key>@cluster0.l4hnc9u.mongodb.net/interexy-users?retryWrites=true&w=majority
 JWT_SECRET_KEY=<insert here a string of your choice>
-JWT_EXPIRE_TIME=1200
+JWT_EXPIRE_TIME=1200000
 ```
 
 note: you can get the key to connect to the database from my message, don't forget to insert a JWT_SECRET_KEY as a string of your choice
+note: if you run Front-End part locally, make sure it's on port 3000
 
 - Run 'npm run build'
 - Run 'npm start'

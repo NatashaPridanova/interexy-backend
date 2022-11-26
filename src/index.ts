@@ -20,8 +20,9 @@ mongoose.connect(process.env.MONGO_URL, () => {
 });
 
 const corsOptions = {
-  origin: 'https://natashapridanova.github.io',
+  origin: ['https://natashapridanova.github.io', 'http://localhost:3000'],
 };
+
 app.use(cors(corsOptions));
 app.use(morgan('common'));
 app.use(express.json());
